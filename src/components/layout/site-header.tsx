@@ -13,8 +13,12 @@ export async function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between">
-        <Link href={`/${locale}`} className="font-mono text-sm tracking-tight text-fg">
-          {siteConfig.name}
+        <Link
+          href={`/${locale}`}
+          aria-label={siteConfig.name}
+          className="font-mono text-sm tracking-tight text-fg"
+        >
+          {siteConfig.handle}
           <span className="text-accent-text">.</span>
         </Link>
 

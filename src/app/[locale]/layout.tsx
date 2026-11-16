@@ -34,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     openGraph: {
       type: "website",
-      siteName: siteConfig.name,
+      siteName: siteConfig.handle,
       title: dict.meta.title,
       description: dict.meta.description,
       locale: ogLocales[locale],
