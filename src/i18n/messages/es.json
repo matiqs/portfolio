@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "title": "Matías Quinteros — Desarrollador frontend",
+    "description": "Portfolio de Matías Quinteros (matiqs), desarrollador de software enfocado en frontend: Angular, React, Next.js y TypeScript."
+  },
+  "a11y": {
+    "skipToContent": "Saltar al contenido",
+    "toggleTheme": "Cambiar entre tema claro y oscuro",
+    "switchLanguage": "Ver en inglés"
+  },
+  "home": {
+    "status": "Portfolio en construcción",
+    "role": "Desarrollador frontend",
+    "summary": "Construyo interfaces y productos web con Angular, React, Next.js y TypeScript."
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "description": "La página que buscás no existe o fue movida.",
+    "back": "Volver al inicio"
+  }
+}

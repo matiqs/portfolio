@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "title": "Matías — Frontend developer",
+    "description": "Portfolio of Matías, a software developer focused on frontend: Angular, React, Next.js and TypeScript."
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "toggleTheme": "Toggle light and dark theme",
+    "switchLanguage": "Ver en español"
+  },
+  "home": {
+    "status": "Portfolio under construction",
+    "role": "Frontend developer",
+    "summary": "I build interfaces and web products with Angular, React, Next.js and TypeScript."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist or has moved.",
+    "back": "Back to home"
+  }
+}

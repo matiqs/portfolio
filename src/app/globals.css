@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+/* El tema se controla con la clase .dark / .light en <html> (next-themes). */
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
+
+/* ------------------------------------------------------------------
+ * Tokens semánticos
+ * Los componentes usan SOLO estos nombres (bg-surface, text-fg-muted…),
+ * nunca hex directos. Cada tema define sus propios valores.
+ * ------------------------------------------------------------------ */
+
+:root,
+.dark {
+  color-scheme: dark;
+
+  --bg: #0b1424;
+  --surface: #15243a;
+  --elevated: #1d304b;
+
+  --fg: #e8edf7; /* 15.7:1 sobre bg */
+  --fg-muted: #9eadc3; /* 8.1:1 sobre bg */
+
+  --accent: #3478f6; /* rellenos, bordes, glows */
+  --accent-text: #5b93ff; /* texto y links: ≥4.5:1 en todas las superficies */
+
+  --line: rgb(158 173 195 / 0.14);
+  --line-strong: rgb(158 173 195 / 0.26);
+  --grid: rgb(158 173 195 / 0.05);
+  --glow: rgb(52 120 246 / 0.16);
+}
+
+.light {
+  color-scheme: light;
+
+  --bg: #f3f6fb;
+  --surface: #ffffff;
+  --elevated: #e8edf5;
+
+  --fg: #0b1424; /* 17:1 sobre bg */
+  --fg-muted: #4a5a73; /* 6.5:1 sobre bg */
+
+  --accent: #1d5bd0;
+  --accent-text: #1d5bd0; /* 5.6:1 sobre bg */
+
+  --line: rgb(11 20 36 / 0.1);
+  --line-strong: rgb(11 20 36 / 0.18);
+  --grid: rgb(11 20 36 / 0.045);
+  --glow: rgb(29 91 208 / 0.1);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+}
+
+/* ------------------------------------------------------------------
+ * Base
+ * ------------------------------------------------------------------ */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-text);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+ * Utilidades propias
+ * ------------------------------------------------------------------ */
+
+/* Cuadrícula sutil de fondo, solo CSS. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Halo de acento muy suave, para dar profundidad al fondo. */
+@utility bg-glow {
+  background-image: radial-gradient(ellipse 60% 50% at 50% 0%, var(--glow), transparent 70%);
+}
