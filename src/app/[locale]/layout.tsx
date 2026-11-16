@@ -3,7 +3,6 @@ import type { ReactNode } from "react";
 
 import "../globals.css";
 
-import { MotionProvider } from "@/components/motion/motion-provider";
 import { SiteHeader } from "@/components/layout/site-header";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { locales, ogLocales } from "@/i18n/config";
@@ -64,10 +63,8 @@ export default async function LocaleLayout({ children }: { children: ReactNode }
           {dict.a11y.skipToContent}
         </a>
         <ThemeProvider>
-          <MotionProvider>
-            <SiteHeader />
-            <main id="main">{children}</main>
-          </MotionProvider>
+          <SiteHeader />
+          <main id="main">{children}</main>
         </ThemeProvider>
       </body>
     </html>

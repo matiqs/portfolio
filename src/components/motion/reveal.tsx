@@ -1,22 +1,20 @@
-"use client";
+import type { ComponentPropsWithoutRef, CSSProperties } from "react";
 
-import { motion, type HTMLMotionProps } from "motion/react";
+import { cn } from "@/lib/cn";
 
-type RevealProps = HTMLMotionProps<"div"> & {
+import { InView } from "./in-view";
+
+type RevealProps = ComponentPropsWithoutRef<"div"> & {
+  /** Retraso en segundos. */
   delay?: number;
 };
 
-/**
- * Aparición sutil al entrar en pantalla.
- * Respeta prefers-reduced-motion vía <MotionConfig reducedMotion="user"> en el layout.
- */
-export function Reveal({ delay = 0, ...props }: RevealProps) {
+/** Aparición sutil (fade + desplazamiento) al entrar en pantalla. */
+export function Reveal({ delay = 0, className, style, ...props }: RevealProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-10% 0px" }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+    <InView
+      className={cn("reveal-fade", className)}
+      style={{ "--d": `${delay}s`, ...style } as CSSProperties}
       {...props}
     />
   );

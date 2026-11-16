@@ -23,10 +23,14 @@
 
   --accent: #3478f6; /* rellenos, bordes, glows */
   --accent-text: #5b93ff; /* texto y links: ≥4.5:1 en todas las superficies */
+  --positive: #3ecf8e; /* estados "disponible", "en línea" */
+  --on-accent: #06101f; /* texto sobre relleno accent: 4.7:1 */
 
   --line: rgb(158 173 195 / 0.14);
   --line-strong: rgb(158 173 195 / 0.26);
   --grid: rgb(158 173 195 / 0.05);
+  --fx: 91 147 255; /* efectos del hero (canvas) */
+  --fx-base: 158 173 195;
   --glow: rgb(52 120 246 / 0.16);
 }
 
@@ -42,10 +46,14 @@
 
   --accent: #1d5bd0;
   --accent-text: #1d5bd0; /* 5.6:1 sobre bg */
+  --positive: #16a34a;
+  --on-accent: #ffffff; /* 6.1:1 sobre accent claro */
 
   --line: rgb(11 20 36 / 0.1);
   --line-strong: rgb(11 20 36 / 0.18);
   --grid: rgb(11 20 36 / 0.045);
+  --fx: 29 91 208;
+  --fx-base: 74 90 115;
   --glow: rgb(29 91 208 / 0.1);
 }
 
@@ -57,6 +65,8 @@
   --color-fg-muted: var(--fg-muted);
   --color-accent: var(--accent);
   --color-accent-text: var(--accent-text);
+  --color-positive: var(--positive);
+  --color-on-accent: var(--on-accent);
   --color-line: var(--line);
   --color-line-strong: var(--line-strong);
 
@@ -116,3 +126,131 @@
 @utility bg-glow {
   background-image: radial-gradient(ellipse 60% 50% at 50% 0%, var(--glow), transparent 70%);
 }
+
+/* ------------------------------------------------------------------
+ * Animación de entrada del hero (CSS puro: no espera a la hidratación).
+ * .intro-line > span sube desde una máscara; .intro-fade aparece con un leve desplazamiento.
+ * El retraso de cada elemento se define con --d.
+ * ------------------------------------------------------------------ */
+
+@keyframes intro-rise {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes intro-fade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes intro-grid {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.intro-line {
+  display: block;
+  overflow: hidden;
+  /* Evita recortar descendentes y acentos. */
+  padding-block: 0.06em;
+  margin-block: -0.06em;
+}
+
+.intro-line > span {
+  display: block;
+  animation: intro-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+.intro-fade {
+  animation: intro-fade 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+.intro-grid {
+  animation: intro-grid 1.4s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-line > span,
+  .intro-fade,
+  .intro-grid {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+ * Apariciones al hacer scroll (ver components/motion/in-view.tsx).
+ * Solo se ocultan cuando JS marcó data-inview="false"; sin JS todo es visible.
+ * ------------------------------------------------------------------ */
+
+.reveal-fade,
+.reveal-mask > span,
+.reveal-rule {
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--d, 0s);
+}
+
+.reveal-fade {
+  transition-property: opacity, transform;
+  transition-duration: 0.8s;
+}
+
+[data-inview="false"].reveal-fade,
+[data-inview="false"] .reveal-fade {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+/* Texto que sube desde una máscara, como el nombre del hero. */
+.reveal-mask {
+  display: block;
+  overflow: hidden;
+  padding-block: 0.08em;
+  margin-block: -0.08em;
+}
+
+.reveal-mask > span {
+  display: block;
+  transition-property: transform;
+  transition-duration: 0.9s;
+}
+
+[data-inview="false"] .reveal-mask > span {
+  transform: translateY(105%);
+}
+
+/* Línea que se dibuja de izquierda a derecha. */
+.reveal-rule {
+  transform-origin: left;
+  transition-property: transform;
+  transition-duration: 0.9s;
+}
+
+[data-inview="false"] .reveal-rule {
+  transform: scaleX(0);
+}
+
+/* Cambio de tema con View Transitions: el círculo lo anima theme-toggle.tsx. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+

@@ -1,53 +1,35 @@
-import { Reveal } from "@/components/motion/reveal";
-import { Container } from "@/components/ui/container";
-import { Section, SectionPlaceholder } from "@/components/ui/section";
-import { getDictionary } from "@/i18n/dictionaries";
-import { sectionIds } from "@/lib/sections";
-import { siteConfig } from "@/lib/site";
+import type { ReactNode } from "react";
 
-/**
- * Home. El hero es provisorio y cada sección muestra un marcador
- * hasta que se construya su componente en components/sections/.
- */
+import { About } from "@/components/sections/about";
+import { Hero } from "@/components/sections/hero";
+import { Skills } from "@/components/sections/skills";
+import { Section, SectionPlaceholder } from "@/components/ui/section";
+import { about } from "@/content/about";
+import { skills } from "@/content/skills";
+import { getDictionary, getLocale } from "@/i18n/dictionaries";
+import { sectionIds, type SectionId } from "@/lib/sections";
+
+/** Secciones ya construidas. Las que no estén acá muestran un marcador. */
+const sectionContent: Partial<Record<SectionId, ReactNode>> = {
+  about: <About />,
+  skills: <Skills />,
+};
+
 export default async function HomePage() {
-  const dict = await getDictionary();
+  const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
+
+  const sectionSubtitle: Partial<Record<SectionId, string>> = {
+    about: about.tagline[locale],
+    skills: skills.tagline[locale],
+  };
 
   return (
     <>
-      <div className="relative isolate overflow-hidden">
-        <div
-          aria-hidden
-          className="bg-grid absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,black,transparent_85%)]"
-        />
-        <div aria-hidden className="bg-glow absolute inset-0 -z-10" />
-
-        <Container className="flex min-h-[calc(100dvh-4rem)] flex-col justify-center py-24">
-          <Reveal>
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent-text">
-              {dict.home.status}
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.08}>
-            <h1 className="mt-6 text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
-              {siteConfig.name}
-              <span className="block font-serif text-4xl font-normal italic text-fg-muted sm:text-6xl">
-                {dict.home.role}
-              </span>
-            </h1>
-          </Reveal>
-
-          <Reveal delay={0.16}>
-            <p className="mt-8 max-w-xl text-lg text-pretty text-fg-muted">
-              {dict.home.summary}
-            </p>
-          </Reveal>
-        </Container>
-      </div>
+      <Hero />
 
       {sectionIds.map((id) => (
-        <Section key={id} id={id} title={dict.sections[id]}>
-          <SectionPlaceholder label={dict.section.placeholder} />
+        <Section key={id} id={id} title={dict.sections[id]} subtitle={sectionSubtitle[id]}>
+          {sectionContent[id] ?? <SectionPlaceholder label={dict.section.placeholder} />}
         </Section>
       ))}
     </>

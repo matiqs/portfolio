@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Matías Quinteros — Frontend developer",
-    "description": "Portfolio of Matías Quinteros (matiqs), a software developer focused on frontend: Angular, React, Next.js and TypeScript."
+    "description": "Portfolio of Matías Quinteros (matiqs), a frontend developer with 6 years of experience building healthcare software with Angular and React/Next.js."
   },
   "a11y": {
     "skipToContent": "Skip to content",
@@ -20,9 +20,12 @@
     "contact": "Contact"
   },
   "home": {
-    "status": "Portfolio under construction",
     "role": "Frontend developer",
-    "summary": "I build interfaces and web products with Angular, React, Next.js and TypeScript."
+    "summary": "I design and build clear interfaces for products that need to grow: from healthcare software to my own web and mobile products.",
+    "cta": {
+      "projects": "View projects",
+      "contact": "Contact"
+    }
   },
   "section": {
     "placeholder": "Content in progress."
