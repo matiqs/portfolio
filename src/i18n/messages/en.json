@@ -1,17 +1,31 @@
 {
   "meta": {
-    "title": "Matías — Frontend developer",
-    "description": "Portfolio of Matías, a software developer focused on frontend: Angular, React, Next.js and TypeScript."
+    "title": "Matías Quinteros — Frontend developer",
+    "description": "Portfolio of Matías Quinteros (matiqs), a software developer focused on frontend: Angular, React, Next.js and TypeScript."
   },
   "a11y": {
     "skipToContent": "Skip to content",
     "toggleTheme": "Toggle light and dark theme",
-    "switchLanguage": "Ver en español"
+    "switchLanguage": "Ver en español",
+    "mainNav": "Main navigation",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "sections": {
+    "about": "About",
+    "projects": "Projects",
+    "freelance": "Freelance",
+    "career": "Experience",
+    "skills": "Skills",
+    "contact": "Contact"
   },
   "home": {
     "status": "Portfolio under construction",
     "role": "Frontend developer",
     "summary": "I build interfaces and web products with Angular, React, Next.js and TypeScript."
+  },
+  "section": {
+    "placeholder": "Content in progress."
   },
   "notFound": {
     "title": "Page not found",

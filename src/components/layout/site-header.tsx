@@ -5,6 +5,7 @@ import { getDictionary, getLocale } from "@/i18n/dictionaries";
 import { siteConfig } from "@/lib/site";
 
 import { LocaleSwitcher } from "./locale-switcher";
+import { SiteNav } from "./site-nav";
 import { ThemeToggle } from "./theme-toggle";
 
 export async function SiteHeader() {
@@ -23,8 +24,10 @@ export async function SiteHeader() {
         </Link>
 
         <div className="flex items-center gap-2">
-          <LocaleSwitcher current={locale} label={dict.a11y.switchLanguage} />
-          <ThemeToggle label={dict.a11y.toggleTheme} />
+          <SiteNav labels={dict.sections} a11y={dict.a11y}>
+            <LocaleSwitcher current={locale} label={dict.a11y.switchLanguage} />
+            <ThemeToggle label={dict.a11y.toggleTheme} />
+          </SiteNav>
         </div>
       </Container>
     </header>

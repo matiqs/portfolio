@@ -6,12 +6,26 @@
   "a11y": {
     "skipToContent": "Saltar al contenido",
     "toggleTheme": "Cambiar entre tema claro y oscuro",
-    "switchLanguage": "Ver en inglés"
+    "switchLanguage": "Ver en inglés",
+    "mainNav": "Navegación principal",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
+  },
+  "sections": {
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "freelance": "Freelance",
+    "career": "Trayectoria",
+    "skills": "Skills",
+    "contact": "Contacto"
   },
   "home": {
     "status": "Portfolio en construcción",
     "role": "Desarrollador frontend",
     "summary": "Construyo interfaces y productos web con Angular, React, Next.js y TypeScript."
+  },
+  "section": {
+    "placeholder": "Contenido en preparación."
   },
   "notFound": {
     "title": "Página no encontrada",
