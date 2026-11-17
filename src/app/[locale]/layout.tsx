@@ -20,6 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     metadataBase: new URL(siteConfig.url),
+    robots: siteConfig.indexable ? undefined : { index: false, follow: false },
     title: {
       default: dict.meta.title,
       template: `%s — ${siteConfig.name}`,

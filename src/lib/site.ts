@@ -12,4 +12,9 @@ export const siteConfig = {
   /** Marca personal: logo y redes (mati.qs, matiqs.fit). */
   handle: "matiqs",
   url: resolveSiteUrl(),
+  /**
+   * Mientras el portfolio no esté listo para compartir, se pide a los buscadores
+   * que no lo indexen. Para publicarlo: cambiar a `true`.
+   */
+  indexable: false,
 } as const;
