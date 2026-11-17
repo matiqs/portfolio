@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import "../globals.css";
 
+import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { locales, ogLocales } from "@/i18n/config";
@@ -39,6 +40,7 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: ogLocales[locale],
       url: `/${locale}`,
     },
+    twitter: { card: "summary_large_image" },
   };
 }
 
@@ -65,6 +67,7 @@ export default async function LocaleLayout({ children }: { children: ReactNode }
         <ThemeProvider>
           <SiteHeader />
           <main id="main">{children}</main>
+          <SiteFooter />
         </ThemeProvider>
       </body>
     </html>

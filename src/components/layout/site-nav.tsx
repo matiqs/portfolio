@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
-import { sectionIds, sectionIndex, type SectionId } from "@/lib/sections";
+import { sectionIndex, visibleSectionIds, type SectionId } from "@/lib/sections";
 
 import { useActiveSection } from "./use-active-section";
 
@@ -17,7 +17,7 @@ type Props = {
 };
 
 export function SiteNav({ labels, a11y, children }: Props) {
-  const active = useActiveSection(sectionIds);
+  const active = useActiveSection(visibleSectionIds);
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -40,7 +40,7 @@ export function SiteNav({ labels, a11y, children }: Props) {
       {/* Desktop */}
       <nav aria-label={a11y.mainNav} className="mr-2 hidden md:block">
         <ul className="flex items-center gap-1">
-          {sectionIds.map((id) => {
+          {visibleSectionIds.map((id) => {
             const isActive = active === id;
             return (
               <li key={id} className="relative">
@@ -95,7 +95,7 @@ export function SiteNav({ labels, a11y, children }: Props) {
             className="absolute inset-x-0 top-full h-[calc(100dvh-4rem)] border-t border-line bg-bg md:hidden"
           >
             <ul className="mx-auto flex max-w-6xl flex-col px-5 py-4 sm:px-8">
-              {sectionIds.map((id) => (
+              {visibleSectionIds.map((id) => (
                 <li key={id}>
                   <a
                     href={`#${id}`}
@@ -106,9 +106,7 @@ export function SiteNav({ labels, a11y, children }: Props) {
                       active === id ? "text-fg" : "text-fg-muted hover:text-fg",
                     )}
                   >
-                    <span className="font-mono text-xs text-accent-text">
-                      {sectionIndex(id)}
-                    </span>
+                    <span className="font-mono text-xs text-accent-text">{sectionIndex(id)}</span>
                     {labels[id]}
                   </a>
                 </li>

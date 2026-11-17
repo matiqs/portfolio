@@ -15,8 +15,8 @@ export const about = {
   },
   paragraphs: [
     {
-      es: "Actualmente trabajo en un LIS (sistema de información de laboratorio) y en My\u00a0Wiener\u00a0Lab, una plataforma que centraliza la gestión de postventa para laboratorios, distribuidores y filiales.",
-      en: "I currently work on a LIS (laboratory information system) and on My\u00a0Wiener\u00a0Lab, a platform that centralizes after-sales management for laboratories, distributors and subsidiaries.",
+      es: "Actualmente trabajo en Nobilis\u00a0Cloud, un LIS (sistema de información de laboratorio), y en My\u00a0Wiener\u00a0Lab, el portal de postventa de la empresa.",
+      en: "I currently work on Nobilis\u00a0Cloud, a LIS (laboratory information system), and on My\u00a0Wiener\u00a0Lab, the company's after-sales portal.",
     },
     {
       es: "En paralelo, desarrollo productos propios web y mobile de punta a punta: desde la idea y el diseño de la experiencia hasta la implementación. Me interesa entender qué problema resuelve cada producto, cómo hacerlo fácil de usar y, sobre todo, decidir qué vale la pena construir.",
@@ -28,8 +28,8 @@ export const about = {
     {
       title: { es: "Arquitectura desde cero", en: "Architecture from scratch" },
       body: {
-        es: "Participé en la creación del frontend del LIS desde sus primeras etapas, contribuyendo a definir una arquitectura que continúa evolucionando y escalando junto a equipos multidisciplinarios.",
-        en: "I took part in building the LIS frontend from its earliest stages, helping define an architecture that keeps evolving and scaling alongside multidisciplinary teams.",
+        es: "Participé en la creación del frontend de Nobilis\u00a0Cloud desde sus primeras etapas, contribuyendo a definir una arquitectura que continúa evolucionando y escalando junto a equipos multidisciplinarios.",
+        en: "I took part in building the Nobilis\u00a0Cloud frontend from its earliest stages, helping define an architecture that keeps evolving and scaling alongside multidisciplinary teams.",
       },
     },
     {

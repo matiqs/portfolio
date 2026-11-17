@@ -23,12 +23,25 @@
     "role": "Desarrollador frontend",
     "summary": "Diseño y construyo interfaces claras para productos que necesitan crecer: del software para el sector salud a mis propios productos web y mobile.",
     "cta": {
-      "projects": "Ver proyectos",
+      "career": "Ver trayectoria",
       "contact": "Contacto"
     }
   },
   "section": {
     "placeholder": "Contenido en preparación."
+  },
+  "career": {
+    "present": "Actualidad",
+    "stack": "Stack"
+  },
+  "contact": {
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "write": "Escribime",
+    "profiles": "Perfiles"
+  },
+  "footer": {
+    "madeWith": "Hecho con Next.js"
   },
   "notFound": {
     "title": "Página no encontrada",

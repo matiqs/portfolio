@@ -49,10 +49,10 @@ export async function Hero() {
 
         <div className="intro-fade mt-10 flex flex-wrap gap-3" style={delay(0.72)}>
           <a
-            href="#projects"
+            href="#career"
             className="group inline-flex h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-medium text-on-accent transition hover:brightness-110"
           >
-            {dict.home.cta.projects}
+            {dict.home.cta.career}
             <ArrowDown
               className="size-4 transition-transform group-hover:translate-y-0.5"
               aria-hidden

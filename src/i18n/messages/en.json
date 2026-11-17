@@ -23,12 +23,25 @@
     "role": "Frontend developer",
     "summary": "I design and build clear interfaces for products that need to grow: from healthcare software to my own web and mobile products.",
     "cta": {
-      "projects": "View projects",
+      "career": "View experience",
       "contact": "Contact"
     }
   },
   "section": {
     "placeholder": "Content in progress."
+  },
+  "career": {
+    "present": "Present",
+    "stack": "Stack"
+  },
+  "contact": {
+    "copy": "Copy",
+    "copied": "Copied",
+    "write": "Email me",
+    "profiles": "Profiles"
+  },
+  "footer": {
+    "madeWith": "Built with Next.js"
   },
   "notFound": {
     "title": "Page not found",

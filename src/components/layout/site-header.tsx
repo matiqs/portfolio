@@ -16,7 +16,7 @@ export async function SiteHeader() {
       <Container className="flex h-16 items-center justify-between">
         <Link
           href={`/${locale}`}
-          aria-label={siteConfig.name}
+          aria-label={`${siteConfig.handle}. — ${siteConfig.name}`}
           className="font-mono text-sm tracking-tight text-fg"
         >
           {siteConfig.handle}

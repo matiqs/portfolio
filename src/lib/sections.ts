@@ -1,6 +1,6 @@
 /**
  * Orden y anclas de las secciones de la home.
- * Los ids son estables en ambos idiomas (#about, #projects…); los títulos viven en i18n.
+ * Los ids son estables en ambos idiomas (#about, #career…); los títulos viven en i18n.
  */
 export const sectionIds = [
   "about",
@@ -13,7 +13,16 @@ export const sectionIds = [
 
 export type SectionId = (typeof sectionIds)[number];
 
-/** Número de sección con dos dígitos: 01, 02… */
+/**
+ * Secciones ocultas mientras no tengan contenido real.
+ * Para mostrar una, sacala de esta lista: vuelve a la nav y a la página.
+ */
+const hiddenSections: readonly SectionId[] = ["projects", "freelance"];
+
+/** Secciones visibles, en orden. Úsese en lugar de `sectionIds` para renderizar. */
+export const visibleSectionIds = sectionIds.filter((id) => !hiddenSections.includes(id));
+
+/** Número de sección con dos dígitos (01, 02…) según el orden visible. */
 export function sectionIndex(id: SectionId): string {
-  return String(sectionIds.indexOf(id) + 1).padStart(2, "0");
+  return String(visibleSectionIds.indexOf(id) + 1).padStart(2, "0");
 }
