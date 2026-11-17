@@ -1,7 +1,6 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
@@ -21,6 +20,39 @@ export function SiteNav({ labels, a11y, children }: Props) {
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+  const pillRef = useRef<HTMLSpanElement>(null);
+
+  // Cápsula de la sección activa: una sola pieza que se desliza (CSS transition)
+  // hasta el link activo. Se posiciona escribiendo estilos, sin re-render.
+  useEffect(() => {
+    const list = listRef.current;
+    const pill = pillRef.current;
+    if (!list || !pill) return;
+
+    let placed = false;
+    const place = () => {
+      const link = active ? list.querySelector<HTMLElement>(`a[href="#${active}"]`) : null;
+      if (!link) {
+        pill.style.opacity = "0";
+        return;
+      }
+      // La primera vez aparece en su lugar, sin deslizarse desde el borde.
+      if (!placed && pill.style.opacity !== "1") pill.style.transition = "opacity 0.3s";
+      // Posición relativa a la lista (cada link está dentro de su propio <li>).
+      const left = link.getBoundingClientRect().left - list.getBoundingClientRect().left;
+      pill.style.transform = `translateX(${left}px)`;
+      pill.style.width = `${link.offsetWidth}px`;
+      pill.style.opacity = "1";
+      placed = true;
+      requestAnimationFrame(() => (pill.style.transition = ""));
+    };
+
+    place();
+    const observer = new ResizeObserver(place);
+    observer.observe(list);
+    return () => observer.disconnect();
+  }, [active]);
 
   // Escape cierra el menú y devuelve el foco al botón.
   useEffect(() => {
@@ -39,7 +71,12 @@ export function SiteNav({ labels, a11y, children }: Props) {
     <>
       {/* Desktop */}
       <nav aria-label={a11y.mainNav} className="mr-2 hidden md:block">
-        <ul className="flex items-center gap-1">
+        <ul ref={listRef} className="relative flex items-center gap-1">
+          <span
+            ref={pillRef}
+            aria-hidden
+            className="absolute top-0 left-0 h-full rounded-full border border-line-strong bg-surface opacity-0 transition-[transform,width,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+          />
           {visibleSectionIds.map((id) => {
             const isActive = active === id;
             return (
@@ -54,14 +91,6 @@ export function SiteNav({ labels, a11y, children }: Props) {
                 >
                   {labels[id]}
                 </a>
-                {isActive && (
-                  <motion.span
-                    layoutId="nav-active"
-                    aria-hidden
-                    className="absolute inset-0 rounded-full border border-line-strong bg-surface"
-                    transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
-                  />
-                )}
               </li>
             );
           })}
@@ -83,38 +112,35 @@ export function SiteNav({ labels, a11y, children }: Props) {
         {open ? <X className="size-4" aria-hidden /> : <Menu className="size-4" aria-hidden />}
       </button>
 
-      <AnimatePresence>
-        {open && (
-          <motion.nav
-            id={menuId}
-            aria-label={a11y.mainNav}
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute inset-x-0 top-full h-[calc(100dvh-4rem)] border-t border-line bg-bg md:hidden"
-          >
-            <ul className="mx-auto flex max-w-6xl flex-col px-5 py-4 sm:px-8">
-              {visibleSectionIds.map((id) => (
-                <li key={id}>
-                  <a
-                    href={`#${id}`}
-                    onClick={() => setOpen(false)}
-                    aria-current={active === id ? "location" : undefined}
-                    className={cn(
-                      "flex items-baseline gap-4 py-3 text-lg transition-colors",
-                      active === id ? "text-fg" : "text-fg-muted hover:text-fg",
-                    )}
-                  >
-                    <span className="font-mono text-xs text-accent-text">{sectionIndex(id)}</span>
-                    {labels[id]}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </motion.nav>
+      {/* Siempre montado: abre y cierra con transición CSS; cerrado queda inerte. */}
+      <nav
+        id={menuId}
+        aria-label={a11y.mainNav}
+        inert={!open}
+        className={cn(
+          "absolute inset-x-0 top-full h-[calc(100dvh-4rem)] border-t border-line bg-bg transition-[opacity,transform,visibility] duration-200 ease-out motion-reduce:transition-none md:hidden",
+          open ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0",
         )}
-      </AnimatePresence>
+      >
+        <ul className="mx-auto flex max-w-6xl flex-col px-5 py-4 sm:px-8">
+          {visibleSectionIds.map((id) => (
+            <li key={id}>
+              <a
+                href={`#${id}`}
+                onClick={() => setOpen(false)}
+                aria-current={active === id ? "location" : undefined}
+                className={cn(
+                  "flex items-baseline gap-4 py-3 text-lg transition-colors",
+                  active === id ? "text-fg" : "text-fg-muted hover:text-fg",
+                )}
+              >
+                <span className="font-mono text-xs text-accent-text">{sectionIndex(id)}</span>
+                {labels[id]}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </>
   );
 }

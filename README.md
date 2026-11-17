@@ -1,6 +1,6 @@
-# Portfolio — Matías
+# Portfolio — Matías Quinteros (matiqs)
 
-Portfolio personal. Next.js (App Router) · React · TypeScript · Tailwind CSS · Motion · Lucide.
+Portfolio personal. Next.js (App Router) · React · TypeScript · Tailwind CSS · Lucide. Animaciones en CSS (sin librerías de animación).
 
 ## Requisitos
 
